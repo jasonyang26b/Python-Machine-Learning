@@ -6,7 +6,7 @@ I will add more documentation along the learning.
 Happy learning!
 
 <details>
-<summary><b>Week 4 - Model Evaluation and Hyperparameter Tuning (focus on scikit-learn)</b></summary>
+<summary><b>Week 4.1 - Model Evaluation and Hyperparameter Tuning (scikit-learn)</b></summary>
 
 [Model Evaluation and Hyperparameter Tuning](Week4-Model_Evaluation_and_Hyperparameter_Tuning.ipynb)
 
@@ -47,4 +47,9 @@ Happy learning!
     - `GridSearchSV`: search best hyperparameters by all combinations
     - `RandomizedSearchCV` - better when search space is large
 
+</details>
+
+<details>
+<summary><b>Week 4.2 - Model Evaluation and Hyperparameter Tuning (TensorFlow)</b></summary>
+    
 </details>
