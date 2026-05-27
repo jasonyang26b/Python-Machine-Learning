@@ -6,7 +6,7 @@ I will add more documentation along the learning.
 Happy learning!
 
 <details>
-<summary> <h3> Week 4 - Model Evaluation and Hyperparameter Tuning (focus on scikit-learn)</h3></summary>
+<summary> <b> Week 4 - Model Evaluation and Hyperparameter Tuning (focus on scikit-learn)</b></summary>
     
 #### Why model evaluation
 - 'Training error is misleading' - a model that overfits looks perfect on training data and fails on new data
