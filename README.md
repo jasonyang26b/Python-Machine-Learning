@@ -5,7 +5,9 @@ Each portion includes codes, charts and explanations, with notes to help my unde
 I will add more documentation along the learning.
 Happy learning!
 
-## Week 4 - Model Evaluation and Hyperparameter Tuning (focus on scikit-learn)
+<details>
+<summary> <h3> Week 4 - Model Evaluation and Hyperparameter Tuning (focus on scikit-learn)</h3></summary>
+    
 #### Why model evaluation
 - 'Training error is misleading' - a model that overfits looks perfect on training data and fails on new data
 - 'Estimates real-word performance' - evaluate performance on unseen data, check if model is underfit, overfit, or systematically biased on certain segments.
@@ -39,3 +41,5 @@ Happy learning!
 - ``Hyperparameter tuning:``
     - `GridSearchSV`: search best hyperparameters by all combinations
     - `RandomizedSearchCV` - better when search space is large
+
+</details>
