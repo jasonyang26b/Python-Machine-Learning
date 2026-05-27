@@ -29,4 +29,4 @@ Happy learning!
     - `roc_auc_score`: A general-purpose function that computes the area under curve. acu(y_true, y_score).
     - `precision_recall_curve`: Computes precision and recall at every possible decision threshold, returning three arrays: precision, recall, and thresholds. especially valuable when classes are imbalanced, since it doesn't inflated by the large true-negative count. precision_recall_curve(y_true, y_score)
 - ``Class imbalance``
-    - class_weight='balanced'
+    - class_weight='balanced': automatically reweights training samples to compensate for calss imbalances - without resampling the data.
