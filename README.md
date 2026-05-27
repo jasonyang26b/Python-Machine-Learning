@@ -51,8 +51,26 @@ Happy learning!
 
 <details>
     
-<summary><b>Week 4.2 - Model Evaluation and Hyperparameter Tuning (TensorFlow)</b></summary>
+<summary><b>Week 4.2 - Hyperparameter Tuning (TensorFlow)</b></summary>
 
-[Model Evaluation and Hyperparameter Tuning: TensorFlow](Week4-TensorFlow_Tuning.ipynb)
+[Hyperparameter Tuning: TensorFlow](Week4-TensorFlow_Tuning.ipynb)
+
+#### What is keras_tuner
+- it is a hyperparameter optimization library built specifically for Keras/TensorFlow models. It automates the process of searching for the best hyperparameter values rather than you manually tring combination.
+
+#### Why use keras_tuner
+- `Systematic search` over a defined space, with reproducibility via seeds
+- `Early stopping` of bad trials, so compute goes to promisign configs instead of being wasted finishing a clearly-bad run
+- `Result tracking`, every trial's hyperparameters, metrics, and checkpoints are saved to disk, so you can resume, inspect, and pull tuner.get_best_hyperparameters() afterward.
+- `Integrationg with Keras callbacks, EarlyStopping, TensorBoard` work normally inside trials.
+
+#### When use it
+- For a tuned MLP, CNN, or anything with depth/width/learning-rate/regularization choices interacting, the tuner usually finds something better than manually pick.
+
+#### What search algorithms
+- `RandomSearch:` samples configs randomly
+- `Hyperbank:` runs many configs for a few epchs, kills the bad ones early, gives more budget to survivors. Very efficient when training is expensive.
+- `BayesianOptimization:` builds a probabilistic model of which hyperparameters tend to work and samples promising regions.
+- `GridSearch:` run ever number, usually only practical for tiny search spaces.
 
 </details>
