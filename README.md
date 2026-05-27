@@ -5,7 +5,7 @@ Each portion includes codes, charts and explanations, with notes to help my unde
 I will add more documentation along the learning.
 Happy learning!
 
-## Model Evaluation and Hyperparameter Tuning
+## Week 4 - Model Evaluation and Hyperparameter Tuning
 - ``pipeline, make_pipeline:``
     - Chaining preprocessing + estimator into one object. Critical for avoiding data leakage during cross-validation.
 - ``cross_validation:``
