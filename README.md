@@ -8,7 +8,7 @@ Happy learning!
 <details>
 <summary><b>Week 4.1 - Model Evaluation and Hyperparameter Tuning (scikit-learn)</b></summary>
 
-[Model Evaluation and Hyperparameter Tuning](Week4-Model_Evaluation_and_Hyperparameter_Tuning.ipynb)
+[Model Evaluation and Hyperparameter Tuning: scikit-learn](Week4-Model_Evaluation_and_Hyperparameter_Tuning.ipynb)
 
 #### Why model evaluation
 - `Training error is misleading` - a model that overfits looks perfect on training data and fails on new data
@@ -50,6 +50,9 @@ Happy learning!
 </details>
 
 <details>
-<summary><b>Week 4.2 - Model Evaluation and Hyperparameter Tuning (TensorFlow)</b></summary>
     
+<summary><b>Week 4.2 - Model Evaluation and Hyperparameter Tuning (TensorFlow)</b></summary>
+
+[Model Evaluation and Hyperparameter Tuning: TensorFlow](Week4-TensorFlow_Tuning.ipynb)
+
 </details>
