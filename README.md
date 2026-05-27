@@ -6,6 +6,14 @@ I will add more documentation along the learning.
 Happy learning!
 
 ## Week 4 - Model Evaluation and Hyperparameter Tuning
+#### Why model evaluation
+- 'Training error is misleading' - a model that overfits looks perfect on training data and fails on new data
+- 'Estimates real-word performance' - evaluate performance on unseen data, check if model is underfit, overfit, or systematically biased on certain segments.
+- 'Matches metric to goal' - 'accuracy' is not a good metric for fraud detection since 99% are good transacton only 1% fraud.
+#### Why hyperparameter tuning
+- 'Defaults are generic, not optimal' - sklearn defaults are picked to be safe across many datasets, not best for yours
+- 'Control the bias-variance trade-off' - C, alpha, max_depth, learning rate, dropout all govern over vs. underfitting adn aren't learned from data.
+#### how to evaluate model
 - ``pipeline, make_pipeline:``
     - Chaining preprocessing + estimator into one object. Critical for avoiding data leakage during cross-validation.
 - ``cross_validation:``
