@@ -126,5 +126,33 @@ Happy learning!
     - Report lift (AP / base rate). Normalizes away the prevalence.
     - Report normalized AP: (AP − base rate) / (1 − base rate). Scales the metric to [0, 1] where 0 = random and 1 = perfect, regardless of base rate.
     - Just always report base rate alongside AP. Cheap and honest — readers can do the math themselves.
+
+##### How to calculate AP
+Here's a worked example with 5 predictions ranked by confidence. Say there are **3 actual positives** total.
+note: score is the model's confidence output fo a single prediciton, every prediction has its own score, when threshold = 0.95 -> only rank 1 is called positive, when threshold = 0.88 -> ranks 1-2 are psotive.
+| Rank | Score | True label | TP count | FP count | Precision | Recall |
+|------|-------|-----------|----------|----------|-----------|--------|
+| 1 | 0.95 | Positive ✓ | 1 | 0 | 1/1 = 1.00 | 1/3 = 0.33 |
+| 2 | 0.88 | Positive ✓ | 2 | 0 | 2/2 = 1.00 | 2/3 = 0.67 |
+| 3 | 0.71 | Negative ✗ | 2 | 1 | 2/3 = 0.67 | 2/3 = 0.67 |
+| 4 | 0.63 | Positive ✓ | 3 | 1 | 3/4 = 0.75 | 3/3 = 1.00 |
+| 5 | 0.52 | Negative ✗ | 3 | 2 | 3/5 = 0.60 | 3/3 = 1.00 |
+
+**Apply the formula** AP = Σ (Rₙ − Rₙ₋₁) · Pₙ, starting with R₀ = 0:
+
+| Rank | Rₙ − Rₙ₋₁ | Pₙ | Contribution |
+|------|-----------|-----|-------------|
+| 1 | 0.33 − 0 = 0.33 | 1.00 | 0.33 |
+| 2 | 0.67 − 0.33 = 0.33 | 1.00 | 0.33 |
+| 3 | 0.67 − 0.67 = 0 | 0.67 | 0 |
+| 4 | 1.00 − 0.67 = 0.33 | 0.75 | 0.25 |
+| 5 | 1.00 − 1.00 = 0 | 0.60 | 0 |
+
+**AP = 0.33 + 0.33 + 0 + 0.25 + 0 = 0.91**
+
+Notice two things:
+
+- Recall only increases when you hit a **true positive**, so the negatives at ranks 3 and 5 contribute zero (their recall step is 0). This is why AP is often described as "average the precision each time you hit a true positive": 1.00, 1.00, and 0.75 → mean = 0.917, which matches (small rounding aside).
+- The model is penalized for that negative at rank 3 — it dropped precision to 0.75 by the time the third true positive appeared at rank 4. A perfect ranking (3 positives at the top) would give precisions 1.00, 1.00, 1.00 → AP = 1.00.
         
 </details>
