@@ -74,3 +74,32 @@ Happy learning!
 - `GridSearch:` run ever number, usually only practical for tiny search spaces.
 
 </details>
+
+<details>
+    
+<summary><b>Week 4.3 - roc_curve and pr_curve </b></summary>
+
+##### What is `roc_curve`
+  
+##### What is `pr_curve`
+- pr_curve (precision-recall curve) plots precision (y-axis) against recall (x-axis) across all classification thresholds (from 1 to 0) for a binary classifier.
+    - precision = TP / (TP + FP), of predicted positives, how many are correct
+    - recall = TP / (TP + FN), of actual postiives, how many you caught
+- As we sweep the decision threshold from high to low we trade precision fro recall. The summary metrics is average precision (AP) or area under the pr_curve.
+- `High threshold` -> few predicted positive -> high precision (capture correctly with strict rules), low recall. Far left (recall around 0), we set a very high threshold like 0.99, we only flag examles we are extremely sure about, we catch very few positives but almost everything we flag is correct (high precision).
+- `low threshold` -> many predicted positive -> low precision (predict wrongly with less strict rules), high recall. Far right (recall=1.0), threshold near 0. we flag almost everything as positive. we catch all the positive but our precision collapses to the base rate because we are flagging a ton of negatives too.
+- pr_curve is prefered over ROC curves on imbalanced datasets (e.g. fraud detection), because ROC's false positve rate uses the large true-negative count in its denominator and stays optimistic when positives are rare, pr_curve only involve the positive class.
+- base rate = Positive / (Positive + Negative)
+- pr_curve for random is a horizontal line at y = base rate.
+    - At anty threshold, the set of instances it flags are positive is just a random sample of all instances. In any random sample, the fraction that are actually positive equals the overall positive rate in the data - the base rate. So precision = base rate no matter where you set the threshold.
+    - Chaning the threshold changes how many you flag (and thus recall sweeps from 0 to 1), but it doens't change the purity of what you flag, since you're always grabbing a representative random slice.
+
+##### How to use `pr_curve`
+- Pick the operating region that matches the cost function. If false positives are expensive (blocking legit Strip transactions annoys merchants), operate top-left: high precision, lower recall. If false negatives are catastrophic (missing fraud = chargeback losses), operate bottom-right: high recall, accept more FPs.
+- The AP number is the area under the whole curve - a single summary across all thresholds. Userful for comparing models, less useful for picking an operating point.
+
+
+
+
+
+</details>
