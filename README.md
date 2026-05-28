@@ -127,7 +127,7 @@ Happy learning!
     - Report normalized AP: (AP − base rate) / (1 − base rate). Scales the metric to [0, 1] where 0 = random and 1 = perfect, regardless of base rate.
     - Just always report base rate alongside AP. Cheap and honest — readers can do the math themselves.
 
-##### How to calculate AP
+#### How to calculate AP (Average Precision) - Weighted average precesion
 Here's a worked example with 5 predictions ranked by confidence. Say there are **3 actual positives** total.
 note: score is the model's confidence output fo a single prediciton, every prediction has its own score, when threshold = 0.95 -> only rank 1 is called positive, when threshold = 0.88 -> ranks 1-2 are psotive.
 | Rank | Score | True label | TP count | FP count | Precision | Recall |
