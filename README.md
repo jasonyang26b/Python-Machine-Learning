@@ -98,8 +98,13 @@ Happy learning!
 - Pick the operating region that matches the cost function. If false positives are expensive (blocking legit Strip transactions annoys merchants), operate top-left: high precision, lower recall. If false negatives are catastrophic (missing fraud = chargeback losses), operate bottom-right: high recall, accept more FPs.
 - The AP number is the area under the whole curve - a single summary across all thresholds. Userful for comparing models, less useful for picking an operating point.
 
+##### `pr_curve` - Why precision rate >= equal base rate (because the TN)
+- Precision at recall=1.0 = base rate only when the worst positive ranks dead last (model has zero ability to separate that hardest positive from negatives).
+- Precision at recall=1.0 > base rate whenever at least one negative ranks below the weakest positive — i.e., the model has some discriminative power even at the bottom.
 
-
-
-
+#### What are the difference between roc_curve and pr_curve
+- roc_curve's random base line is always 0.5, regardless of class balance.
+- pr_curve:
+    - AP's random baseline equals the positive class prevalence. Precision's denominator is "things you predicted positive," which includes false positives drawn from the negative class. A random classifier flagging things at rate r will have precision ≈ base rate at every recall level (because among randomly flagged items, the fraction that are truly positive equals the overall positive rate). So the PR curve for random is a horizontal line at y = base rate, and AP ≈ base rate.
+    - Why this matters in practice: if someone tells you "my model has AUC-ROC = 0.85" you immediately know it's well above the 0.5 random floor. If someone tells you "my model has AP = 0.30" you have no idea if it's good until you ask "what's the positive rate?" AP = 0.30 with 1% positives is brilliant. AP = 0.30 with 40% positives is barely better than random.
 </details>
