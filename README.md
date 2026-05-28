@@ -74,3 +74,85 @@ Happy learning!
 - `GridSearch:` run ever number, usually only practical for tiny search spaces.
 
 </details>
+
+<details>
+    
+<summary><b>Week 4.3 - roc_curve and pr_curve </b></summary>
+
+##### What is `roc_curve`
+- probability the model ranks a random positive above a random negative, range from 0 to 1, 0.5 is random.
+- at each cutoff, how many positives have I caught vs. how many negatives have I falsely caught.
+  
+##### What is `pr_curve`
+- pr_curve (precision-recall curve) plots precision (y-axis) against recall (x-axis) across all classification thresholds (from 1 to 0) for a binary classifier.
+    - precision = TP / (TP + FP), of predicted positives, how many are correct
+    - recall = TP / (TP + FN), of actual postiives, how many you caught
+- As we sweep the decision threshold from high to low we trade precision fro recall. The summary metrics is average precision (AP) or area under the pr_curve.
+- `High threshold` -> few predicted positive -> high precision (capture correctly with strict rules), low recall. Far left (recall around 0), we set a very high threshold like 0.99, we only flag examles we are extremely sure about, we catch very few positives but almost everything we flag is correct (high precision).
+- `low threshold` -> many predicted positive -> low precision (predict wrongly with less strict rules), high recall. Far right (recall=1.0), threshold near 0. we flag almost everything as positive. we catch all the positive but our precision collapses to the base rate because we are flagging a ton of negatives too.
+- pr_curve is prefered over ROC curves on imbalanced datasets (e.g. fraud detection), because ROC's false positve rate uses the large true-negative count in its denominator and stays optimistic when positives are rare, pr_curve only involve the positive class.
+- base rate = Positive / (Positive + Negative)
+- pr_curve for random is a horizontal line at y = base rate.
+    - At anty threshold, the set of instances it flags are positive is just a random sample of all instances. In any random sample, the fraction that are actually positive equals the overall positive rate in the data - the base rate. So precision = base rate no matter where you set the threshold.
+    - Chaning the threshold changes how many you flag (and thus recall sweeps from 0 to 1), but it doens't change the purity of what you flag, since you're always grabbing a representative random slice.
+
+##### How to use `pr_curve`
+- Pick the operating region that matches the cost function. If false positives are expensive (blocking legit Strip transactions annoys merchants), operate top-left: high precision, lower recall. If false negatives are catastrophic (missing fraud = chargeback losses), operate bottom-right: high recall, accept more FPs.
+- The AP number is the area under the whole curve - a single summary across all thresholds. Userful for comparing models, less useful for picking an operating point.
+
+##### `pr_curve` - Why precision rate >= equal base rate (because the TN)
+- Precision at recall=1.0 = base rate only when the worst positive ranks dead last (model has zero ability to separate that hardest positive from negatives).
+- Precision at recall=1.0 > base rate whenever at least one negative ranks below the weakest positive — i.e., the model has some discriminative power even at the bottom.
+
+#### What are the difference between roc_curve and pr_curve
+`Point 1:`
+- roc_curve's random base line is always 0.5, regardless of class balance.
+    - A random classifier assigns scores with no relationship to the true labels. At any threshold, it flags a given fraction of all examples regardless of class — so it captures positives and negatives at the same rate. That means True Positive Rate equals False Positive Rate at every threshold, which traces the diagonal line from (0,0) to (1,1). The area under that diagonal is exactly 0.5.
+    - Intuitively: AUC equals the probability that the model ranks a random positive above a random negative. If scores are random, that's a coin flip — 0.5.
+    - Two caveats worth knowing:
+        - The 0.5 baseline is independent of class balance. This is a key advantage of ROC over precision-recall, where the baseline shifts with the positive rate.
+        - Below 0.5 isn't "worse than random" in a useful sense — it means the classifier is anti-correlated, so inverting its predictions gives you AUC > 0.5.
+- pr_curve:
+    - AP's random baseline equals the positive class prevalence. Precision's denominator is "things you predicted positive," which includes false positives drawn from the negative class. A random classifier flagging things at rate r will have precision ≈ base rate at every recall level (because among randomly flagged items, the fraction that are truly positive equals the overall positive rate). So the PR curve for random is a horizontal line at y = base rate, and AP ≈ base rate.
+    - Why this matters in practice: if someone tells you "my model has AUC-ROC = 0.85" you immediately know it's well above the 0.5 random floor. If someone tells you "my model has AP = 0.30" you have no idea if it's good until you ask "what's the positive rate?" AP = 0.30 with 1% positives is brilliant. AP = 0.30 with 40% positives is barely better than random.
+      
+`Point 2:`
+- AUC-ROC is comparable across datasets because the baseline (0.5) and ceiling (1.0) are fixed. If model A gets AUC = 0.82 on dataset X and model B gets AUC = 0.79 on dataset Y, you can meaningfully say A scored higher — both are measured against the same scale.
+- AP is not comparable across datasets because the floor moves with the data. Model A getting AP = 0.60 on a 30% positive dataset and Model B getting AP = 0.40 on a 5% positive dataset — which is better? Naively A looks better, but:
+    - A's lift over random: 0.60 / 0.30 = 2.0×
+    - B's lift over random: 0.40 / 0.05 = 8.0×
+    - B is actually the much stronger model relative to its baseline. The raw AP numbers are misleading.
+- Workarounds for AP comparison:
+    - Report lift (AP / base rate). Normalizes away the prevalence.
+    - Report normalized AP: (AP − base rate) / (1 − base rate). Scales the metric to [0, 1] where 0 = random and 1 = perfect, regardless of base rate.
+    - Just always report base rate alongside AP. Cheap and honest — readers can do the math themselves.
+
+#### How to calculate AP (Average Precision) - Weighted average precesion
+Here's a worked example with 5 predictions ranked by confidence. Say there are **3 actual positives** total.
+note: score is the model's confidence output fo a single prediciton, every prediction has its own score, when threshold = 0.95 -> only rank 1 is called positive, when threshold = 0.88 -> ranks 1-2 are psotive.
+| Rank | Score | True label | TP count | FP count | Precision | Recall |
+|------|-------|-----------|----------|----------|-----------|--------|
+| 1 | 0.95 | Positive ✓ | 1 | 0 | 1/1 = 1.00 | 1/3 = 0.33 |
+| 2 | 0.88 | Positive ✓ | 2 | 0 | 2/2 = 1.00 | 2/3 = 0.67 |
+| 3 | 0.71 | Negative ✗ | 2 | 1 | 2/3 = 0.67 | 2/3 = 0.67 |
+| 4 | 0.63 | Positive ✓ | 3 | 1 | 3/4 = 0.75 | 3/3 = 1.00 |
+| 5 | 0.52 | Negative ✗ | 3 | 2 | 3/5 = 0.60 | 3/3 = 1.00 |
+
+**Apply the formula** AP = Σ (Rₙ − Rₙ₋₁) · Pₙ, starting with R₀ = 0:
+
+| Rank | Rₙ − Rₙ₋₁ | Pₙ | Contribution |
+|------|-----------|-----|-------------|
+| 1 | 0.33 − 0 = 0.33 | 1.00 | 0.33 |
+| 2 | 0.67 − 0.33 = 0.33 | 1.00 | 0.33 |
+| 3 | 0.67 − 0.67 = 0 | 0.67 | 0 |
+| 4 | 1.00 − 0.67 = 0.33 | 0.75 | 0.25 |
+| 5 | 1.00 − 1.00 = 0 | 0.60 | 0 |
+
+**AP = 0.33 + 0.33 + 0 + 0.25 + 0 = 0.91**
+
+Notice two things:
+
+- Recall only increases when you hit a **true positive**, so the negatives at ranks 3 and 5 contribute zero (their recall step is 0). This is why AP is often described as "average the precision each time you hit a true positive": 1.00, 1.00, and 0.75 → mean = 0.917, which matches (small rounding aside).
+- The model is penalized for that negative at rank 3 — it dropped precision to 0.75 by the time the third true positive appeared at rank 4. A perfect ranking (3 positives at the top) would give precisions 1.00, 1.00, 1.00 → AP = 1.00.
+        
+</details>
