@@ -80,6 +80,8 @@ Happy learning!
 <summary><b>Week 4.3 - roc_curve and pr_curve </b></summary>
 
 ##### What is `roc_curve`
+- probability the model ranks a random positive above a random negative, range from 0 to 1, 0.5 is random.
+- at each cutoff, how many positives have I caught vs. how many negatives have I falsely caught.
   
 ##### What is `pr_curve`
 - pr_curve (precision-recall curve) plots precision (y-axis) against recall (x-axis) across all classification thresholds (from 1 to 0) for a binary classifier.
@@ -103,8 +105,26 @@ Happy learning!
 - Precision at recall=1.0 > base rate whenever at least one negative ranks below the weakest positive — i.e., the model has some discriminative power even at the bottom.
 
 #### What are the difference between roc_curve and pr_curve
+`Point 1:`
 - roc_curve's random base line is always 0.5, regardless of class balance.
+    - A random classifier assigns scores with no relationship to the true labels. At any threshold, it flags a given fraction of all examples regardless of class — so it captures positives and negatives at the same rate. That means True Positive Rate equals False Positive Rate at every threshold, which traces the diagonal line from (0,0) to (1,1). The area under that diagonal is exactly 0.5.
+    - Intuitively: AUC equals the probability that the model ranks a random positive above a random negative. If scores are random, that's a coin flip — 0.5.
+    - Two caveats worth knowing:
+        - The 0.5 baseline is independent of class balance. This is a key advantage of ROC over precision-recall, where the baseline shifts with the positive rate.
+        - Below 0.5 isn't "worse than random" in a useful sense — it means the classifier is anti-correlated, so inverting its predictions gives you AUC > 0.5.
 - pr_curve:
     - AP's random baseline equals the positive class prevalence. Precision's denominator is "things you predicted positive," which includes false positives drawn from the negative class. A random classifier flagging things at rate r will have precision ≈ base rate at every recall level (because among randomly flagged items, the fraction that are truly positive equals the overall positive rate). So the PR curve for random is a horizontal line at y = base rate, and AP ≈ base rate.
     - Why this matters in practice: if someone tells you "my model has AUC-ROC = 0.85" you immediately know it's well above the 0.5 random floor. If someone tells you "my model has AP = 0.30" you have no idea if it's good until you ask "what's the positive rate?" AP = 0.30 with 1% positives is brilliant. AP = 0.30 with 40% positives is barely better than random.
+      
+`Point 2:`
+- AUC-ROC is comparable across datasets because the baseline (0.5) and ceiling (1.0) are fixed. If model A gets AUC = 0.82 on dataset X and model B gets AUC = 0.79 on dataset Y, you can meaningfully say A scored higher — both are measured against the same scale.
+- AP is not comparable across datasets because the floor moves with the data. Model A getting AP = 0.60 on a 30% positive dataset and Model B getting AP = 0.40 on a 5% positive dataset — which is better? Naively A looks better, but:
+    - A's lift over random: 0.60 / 0.30 = 2.0×
+    - B's lift over random: 0.40 / 0.05 = 8.0×
+    - B is actually the much stronger model relative to its baseline. The raw AP numbers are misleading.
+- Workarounds for AP comparison:
+    - Report lift (AP / base rate). Normalizes away the prevalence.
+    - Report normalized AP: (AP − base rate) / (1 − base rate). Scales the metric to [0, 1] where 0 = random and 1 = perfect, regardless of base rate.
+    - Just always report base rate alongside AP. Cheap and honest — readers can do the math themselves.
+        
 </details>
