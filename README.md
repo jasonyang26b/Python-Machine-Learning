@@ -5,7 +5,7 @@ Each portion includes codes, charts and explanations, with notes to help my unde
 I will add more documentation along the learning.
 Happy learning!
 
-### Decision Tree
+### Ensemble Models
 - Parametric and non-parametric
 - Decision Tree definition
 - Decision Tree Hyperparameters
