@@ -9,7 +9,7 @@ Happy learning!
 
 <details>
     
-<summary><b>Ensemble Models</b></summary>
+<summary><b>Decision Tree</b></summary>
 
 - Parametric and non-parametric
 - Decision Tree definition
