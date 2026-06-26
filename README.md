@@ -5,7 +5,12 @@ Each portion includes codes, charts and explanations, with notes to help my unde
 I will add more documentation along the learning.
 Happy learning!
 
-### Ensemble Models
+
+
+<details>
+    
+<summary><b>Ensemble Models</b></summary>
+
 - Parametric and non-parametric
 - Decision Tree definition
 - Decision Tree Hyperparameters
@@ -14,3 +19,5 @@ Happy learning!
         - Information Gain
         - Best threshold per feature
     - Gini Impurity
+
+</details>
