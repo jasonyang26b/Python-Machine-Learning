@@ -1,4 +1,7 @@
 <details>
+
+### Logistic Regression and Model Evaluation
+
 <summary><b>Week 4.1 - Model Evaluation and Hyperparameter Tuning (scikit-learn)</b></summary>
 
 [Model Evaluation and Hyperparameter Tuning: scikit-learn](Week4-Model_Evaluation_and_Hyperparameter_Tuning.ipynb)
