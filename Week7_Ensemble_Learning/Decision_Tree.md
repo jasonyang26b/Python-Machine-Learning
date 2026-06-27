@@ -1,7 +1,6 @@
 
     
 ### <b> Decision Tree File Topics</b>
-
 - Parametric and non-parametric
 - Decision Tree definition
 - Decision Tree Hyperparameters
@@ -46,4 +45,4 @@
     - EuclideanDistance
     - NearestNeighbors
 - Detail Files:
--     [KNN](KNN.ipynb)
+    - [KNN](KNN.ipynb)
