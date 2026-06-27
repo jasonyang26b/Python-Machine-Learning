@@ -4,20 +4,3 @@ Main resource comes from book 'Python Machine Learning, 3rd version', with addit
 Each portion includes codes, charts and explanations, with notes to help my understanding.
 I will add more documentation along the learning.
 Happy learning!
-
-
-
-<details>
-    
-<summary><b>Decision Tree</b></summary>
-
-- Parametric and non-parametric
-- Decision Tree definition
-- Decision Tree Hyperparameters
-- Impurity measures (Cost/Loss function)
-    - Entropy
-        - Information Gain
-        - Best threshold per feature
-    - Gini Impurity
-
-</details>
