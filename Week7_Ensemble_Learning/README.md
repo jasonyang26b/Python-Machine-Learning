@@ -21,7 +21,7 @@
 ### <b>Ensemble Learning</b>
 - Use `bagging` to reduce overfitting by drawing random combinations of the training dataset with repetition
 - Make predictions based on `majority voting`
-- Apply `boosting` to build powerful models from weak learners that leran from their mistakes.
+- Apply `boosting` to build powerful models from weak learners that learn from their mistakes.
 - `Unpruned` decision tree
 - `ID3, C4.5, and CART`
 - Ensemble and `Majority Voting` would reduce Variance
