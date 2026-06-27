@@ -15,6 +15,8 @@
         - Information Gain
         - Best threshold per feature
     - Gini Impurity
+
+[Decision Trees](Decision_Trees.ipynb)
  
 ### <b>Ensemble Learning</b>
 - Use `bagging` to reduce overfitting by drawing random combinations of the training dataset with repetition
