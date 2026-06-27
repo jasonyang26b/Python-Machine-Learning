@@ -1,6 +1,6 @@
 
     
-<b>Decision Tree File Topics</b>
+### <b> Decision Tree File Topics</b>
 
 - Parametric and non-parametric
 - Decision Tree definition
@@ -15,5 +15,24 @@
         - Information Gain
         - Best threshold per feature
     - Gini Impurity
+ 
+### <b>Ensemble Learning</b>
+- Use `bagging` to reduce overfitting by drawing random combinations of the training dataset with repetition
+- Make predictions based on `majority voting`
+- Apply `boosting` to build powerful models from weak learners that leran from their mistakes.
+- `Unpruned` decision tree
+- `ID3, C4.5, and CART`
+- Ensemble and `Majority Voting` would reduce Variance
+- How the `Base Error` affect the Ensemble Error
+- Using the `majority voting principle` to make predictions
+- Applying `bagging` to classify examples in the Wine dataset
+- How the bagging reduce the `variance` but not the `bias`
+- Leveraging weak learners via `adaptive boosting`
 
-
+### <b>K Nearest Neighbors</b>
+- KNN Definition
+- Strengths & Weakness
+- How it works
+- Coding - KNN from Scratch
+    - EuclideanDistance
+    - NearestNeighbors
