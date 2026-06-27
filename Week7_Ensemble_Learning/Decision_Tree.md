@@ -15,8 +15,9 @@
         - Information Gain
         - Best threshold per feature
     - Gini Impurity
-
-[Decision Trees](Decision_Trees.ipynb)
+      
+- Detail Files:
+    - [Decision Trees](Decision_Trees.ipynb)
  
 ### <b>Ensemble Learning</b>
 - Use `bagging` to reduce overfitting by drawing random combinations of the training dataset with repetition
@@ -30,6 +31,12 @@
 - Applying `bagging` to classify examples in the Wine dataset
 - How the bagging reduce the `variance` but not the `bias`
 - Leveraging weak learners via `adaptive boosting`
+- Detail Files:
+    - [Ensemble Learning](Ensemble_Learning.ipynb)
+    - [AdaBoost From Scratch](AdaBoost_From_Scratch.ipynb)
+    - [Bagging Classifier](Bagging_Classifier.ipynb)
+    - [GradientBoosting From Scratch](Gradient_Boosting_Machine_From_Scratch.ipynb)
+    - [Majority Voting](Majority_Voting.ipynb)
 
 ### <b>K Nearest Neighbors</b>
 - KNN Definition
@@ -38,3 +45,5 @@
 - Coding - KNN from Scratch
     - EuclideanDistance
     - NearestNeighbors
+- Detail Files:
+-     [KNN](KNN.ipynb)
